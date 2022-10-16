@@ -26,7 +26,7 @@ public class ProductService {
 
     //Find all the products by name - Get
     public List<Product> findAllByName(String name){
-        return productRepo.findAllByName(name);
+         return productRepo.findAllByName(name);
     }
 
 

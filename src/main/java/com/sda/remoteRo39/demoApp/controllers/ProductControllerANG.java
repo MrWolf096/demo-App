@@ -30,23 +30,27 @@ public class ProductControllerANG {
         return productService.findAll();
     }
 
-    @GetMapping("/productFound/{id}")
-    public ResponseEntity<Product> findByID(@PathVariable Long id){
+    @GetMapping("/product/{id}")
+    public ResponseEntity<Product> findByID(@PathVariable(name = "id") Long id){
         Product product = productService.findById(id).orElseThrow(()->new ResourceNotFoundException("Product with id " + id + " not found."));
       //  return ResponseEntity.ok(product);
         return new ResponseEntity<>(product,HttpStatus.OK);
+    }
+
+    @GetMapping("/productFound/{name}")
+    public ResponseEntity<List<Product>> findAllByName(@PathVariable(name = "name") String name){
+        List<Product> products = productService.findAllByName(name);
+
+        if (products.size() == 0){
+            throw new ResourceNotFoundException("The list products doesn't contain any product with name " + name);
+        }
+        return new ResponseEntity<>(products, HttpStatus.OK);
     }
 
     @PostMapping("/createProduct")
     public ResponseEntity<Product> addProduct(@RequestBody Product prod){
         Product newProduct = productService.addProduct(prod);
         return new ResponseEntity<>(newProduct, HttpStatus.CREATED);
-    }
-
-    @PutMapping ("/editProduct")
-    public ResponseEntity<Product> editProduct(@RequestBody Product prod){
-        Product editedProduct = productService.editProduct(prod);
-        return ResponseEntity.ok(editedProduct);
     }
 
     @PutMapping("/editProductFound/{id}")

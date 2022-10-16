@@ -15,7 +15,7 @@ import java.util.Set;
 @Table(name= "products")
 public class Product {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     private Long id;
 
@@ -31,7 +31,8 @@ public class Product {
     @Column(name= "category", nullable = false)
     private String category;
 
-    @ManyToMany(mappedBy = "products")
-    Set<Order> orders = new HashSet<>();
+    @Column(name = "imagePath")
+    private String imagePath;
+
 
 }

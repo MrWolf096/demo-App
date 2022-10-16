@@ -17,7 +17,7 @@ import java.util.List;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "order_id")
     private Long id;
 
@@ -37,8 +37,6 @@ public class Order {
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate createdDate;
 
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "order_product", joinColumns = @JoinColumn(name = "order_id"),
-    inverseJoinColumns = @JoinColumn(name = "product_id"))
+    @OneToMany(fetch = FetchType.LAZY)
     private List<Product> products;
 }
